@@ -2,12 +2,12 @@
 // 說明：請為以下變數補上正確型別（數字、字串、布林、字串陣列、帶型別的物件）。
 // 目標：能直接通過型別檢查與基本值檢查。
 
-export const plantId /* TODO: 型別 */ = 101;
-export const plantName /* TODO: 型別 */ = "琴葉榕（Fiddle Leaf Fig）";
-export const isAvailable /* TODO: 型別 */ = true;
-export const tags /* TODO: 型別 */ = ["大型植栽", "室內明亮散射光"];
-export const plant /* TODO: 物件型別 */ = { id: 101, name: "琴葉榕", price: 2500 };
-export const cart /* TODO: 陣列包物件的型別定義 > */ = [
+export const plantId: number = 101;
+export const plantName: string = "琴葉榕（Fiddle Leaf Fig）";
+export const isAvailable: boolean = true;
+export const tags: string[] = ["大型植栽", "室內明亮散射光"];
+export const plant: { id: number; name: string; price: number } = { id: 101, name: "琴葉榕", price: 2500 };
+export const cart: Array<{ sku: string; name: string; qty: number; price: number; potColor?: string }>= [
   { sku: "PLANT-1001", name: "虎尾蘭", qty: 2, price: 480 },
   { sku: "PLANT-2001", name: "龜背芋", qty: 1, price: 1200, potColor: "白" },
 ];
@@ -42,9 +42,18 @@ export const snakePlant /* TODO: OnShelfPlant */ = {
 // --- 題目四：interface（extends 組合） ---
 // 說明：定義 Price 與 Shippable，PlantItem 需 extends 兩者並包含 id/name。
 // 目標：理解介面擴充多重介面的寫法。
-export interface Price { /* TODO: price: 型別; currency:"TWD"|"USD" */ }
-export interface Shippable { /* TODO: weightKg: 型別; shipFrom: 型別 */ }
-// export interface PlantItem 組合 Price, Shippable 並包含 id/name
+export interface Price {
+  price: number;
+  currency: string;
+}
+export interface Shippable {
+  weightKg: number;
+  shipFrom: string;
+}
+export interface PlantItem extends Price, Shippable {
+  ud: number;
+  name: string
+}
 
 export const fiddleLeafFig /* TODO: PlantItem */ = {
   id: 101,
