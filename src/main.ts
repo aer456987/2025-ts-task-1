@@ -16,6 +16,58 @@ export const cart: Array<{ sku: string; name: string; qty: number; price: number
 // 說明：請定義 PlantCategory Enum，並示範反向映射。
 // 目標：理解 Enum 定義與反向映射的寫法。
 
+// 定義方式:
+enum weekdays {
+  monday,
+  tuesday,
+  wednesday,
+  thursday,
+  friday,
+  saturday,
+  sunday
+}
+
+// 用於 function，判斷式 or 型別定義
+function checkDay(day: weekdays) {
+  switch (day) {
+    case weekdays.monday:
+      console.log('today is monday');
+      break
+    case weekdays.tuesday:
+      console.log('today is tuesday');
+      break
+    case weekdays.wednesday:
+      console.log('today is wednesday');
+      break
+      case weekdays.thursday:
+      console.log('today is tuesday');
+      break
+    case weekdays.friday:
+      console.log('today is friday');
+      break
+    case  weekdays.saturday:
+      console.log('today is saturday');
+      break
+    case weekdays.sunday:
+      console.log('today is sunday');
+      break
+    default:
+      console.log('error');
+      break
+  }
+}
+
+// 使用:
+checkDay(weekdays['monday']); // today is monday
+
+// enum 定義時，如果沒有手動賦值(ex: monday = 1 || monday = '星期一')，那初始值為索引值 0
+// 如果手動賦值 (monday = 6)，TS 會自動推斷並依次增加剩餘參數的值 (索引)，如 7、8、9、10...
+// 如果手動賦值為字串，因為 TS 無法幫字串進行自動推斷，所以剩餘的參數都需要手動賦值
+// 反向映射範例：
+// PlantCategory[0] => "LargePlant" 取出字串 
+// PlantCategory['LargePlant'] => 0 取出索引
+
+
 export enum PlantCategory {
   LargePlant
 }
@@ -79,26 +131,39 @@ export const calcTotal: CalcTotalFn = (items, coupon) => {
   return Math.max(0, subtotal - coupon.amount);
 };
 
-calcTotal([{ price: 900, qty: 10 }], { type: "cash", amount: 1 })
+console.log(calcTotal([{ price: 900, qty: 10 }], { type: "cash", amount: 1 }));
+
 
 
 // --- 題目六：Generics + API 應用（使用 axios)  ---
 // 說明：import axios 與 AxiosResponse，定義 PlantDTO，實作 fetchPlants。
 // API: https://fakestoreapi.com/products
 // 目標：理解泛型定義與應用。
-import axios from 'axios'; /* TODO */
+import axios from 'axios'; /* TODO: */
+type Rating = {
+  rate: number,
+  count: number
+}
 export type PlantDTO = { 
   id: number; 
   title: string; 
   price: number; 
-  category: string; 
+  description: string,
+  category: string;
+  image: string,
+  rating: Rating
 };
 
-export const fetchPlants = async () /* TODO */ => {
+export const fetchPlants = async (): Promise<PlantDTO[]> => {
   return axios.get('https://fakestoreapi.com/products');
 }
-
-
+fetchPlants()
+  .then(response => {
+    console.log('response: ', response);
+  })
+  .catch(error => {
+    console.error('error: ', error);
+  })
 
 // --- 題目七：Required、Partial ---
 // 說明：updatePlant(input) 接受部分更新，實際回傳需是 Required<PlantBase>。
