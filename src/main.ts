@@ -139,31 +139,25 @@ console.log(calcTotal([{ price: 900, qty: 10 }], { type: "cash", amount: 1 }));
 // 說明：import axios 與 AxiosResponse，定義 PlantDTO，實作 fetchPlants。
 // API: https://fakestoreapi.com/products
 // 目標：理解泛型定義與應用。
-import axios from 'axios'; /* TODO: */
+import axios from 'axios';
+import type { AxiosResponse } from 'axios';
 type Rating = {
-  rate: number,
-  count: number
+  rate: number;
+  count: number;
 }
-export type PlantDTO = { 
-  id: number; 
-  title: string; 
-  price: number; 
-  description: string,
+export type PlantDTO = {
+  id: number;
+  title: string;
+  price: number;
+  description: string;
   category: string;
-  image: string,
+  image: string;
   rating: Rating
 };
 
-export const fetchPlants = async (): Promise<PlantDTO[]> => {
+export const fetchPlants = async (): Promise<AxiosResponse<PlantDTO[]>> => {
   return axios.get('https://fakestoreapi.com/products');
 }
-fetchPlants()
-  .then(response => {
-    console.log('response: ', response);
-  })
-  .catch(error => {
-    console.error('error: ', error);
-  })
 
 // --- 題目七：Required、Partial ---
 // 說明：updatePlant(input) 接受部分更新，實際回傳需是 Required<PlantBase>。
@@ -175,8 +169,8 @@ export type PlantBase = {
   description?: string
 };
 
-export function updatePlant(input: /* TODO */ any): PlantBase {
-  const existing: /* TODO */ any = { id: 1, name: "虎尾蘭", price: 480, description: "耐陰、淨化空氣" };
+export function updatePlant(input: PlantBase): PlantBase {
+  const existing: PlantBase = { id: 1, name: "虎尾蘭", price: 480, description: "耐陰、淨化空氣" };
   const merged = { ...existing, ...input };
   return {
     id: merged.id,
@@ -224,6 +218,7 @@ export const publicPlant /* TODO */ = { id: 101, name: "琴葉榕", price: 2500,
     - imageUrl: 字串
     - imagesUrl: 字串陣列（非必要）
 */
+
 
 /*
 2️⃣ 定義 type CreateProduct
