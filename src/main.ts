@@ -169,8 +169,8 @@ export type PlantBase = {
   description?: string
 };
 
-export function updatePlant(input: PlantBase): PlantBase {
-  const existing: PlantBase = { id: 1, name: "虎尾蘭", price: 480, description: "耐陰、淨化空氣" };
+export function updatePlant(input: /* TODO */ any): PlantBase {
+  const existing: /* TODO */ any = { id: 1, name: "虎尾蘭", price: 480, description: "耐陰、淨化空氣" };
   const merged = { ...existing, ...input };
   return {
     id: merged.id,
@@ -184,8 +184,9 @@ export function updatePlant(input: PlantBase): PlantBase {
 // --- 題目八：Record ---
 // 說明：用 Record 表示庫存表。
 // 目標：以字串鍵對應到嚴格結構。
-export type Inventory = /* TODO */ any;
-export const inventory /* TODO */ = {
+type InventoryKey = "PLANT-1001" | "PLANT-2001";
+export type Inventory = Record<InventoryKey, number>;
+export const inventory: Inventory = {
   "PLANT-1001": 42,
   "PLANT-2001": 8,
 };
